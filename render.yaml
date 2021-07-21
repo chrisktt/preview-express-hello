@@ -7,13 +7,13 @@
 #    is created when you issue a pull request
 #    and deleted when you merge or reject the PR or after a time limit
 
+previewsEnabled: true
+previewsExpireAfterDays: 2
 services:
   - type: web
     name: express-hello-world
     env: node
     previewPlan: starter
     autoDeploy: true      # Immediately deploy upon push to git default branch
-    previewsEnabled: true
-    previewsExpireAfterDays: 2
     buildCommand: yarn
     startCommand: yarn start
