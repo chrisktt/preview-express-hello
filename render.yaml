@@ -1,0 +1,33 @@
+# https://render.com/docs/yaml-spec
+# deploy service on render.com
+
+# Preview Environments | Render · Cloud Hosting for Developers
+# https://render.com/docs/preview-environments
+# Preview environment is a temporary service and URL that
+#    is created when you issue a pull request
+#    and deleted when you merge or reject the PR or after a time limit
+
+services:
+  - type: web
+    name: express-helloo-world
+    env: node
+    region: oregon                   # optional (defaults to oregon)
+    plan: starter                    # optional (defaults to starter)
+    previewPlan: starter
+    # healthCheckPath: /status
+    autoDeploy: true      # Immediately deploy upon push to git default branch
+    previewsEnabled: true
+    previewsExpireAfterDays: 2
+    scaling:
+      minInstances: 1     # Preview environment will only ever use minInstances
+      maxInstances: 3
+      targetMemoryPercent: 70
+      targetCPUPercent: 70
+    buildCommand: yarn
+    startCommand: yarn start
+    domains:
+    # - test-exec-dash.metrocare-agent.com
+    envVars:
+    - key: NODE_ENV
+      value: production
+      previewValue: test
