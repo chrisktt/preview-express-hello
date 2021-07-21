@@ -9,25 +9,11 @@
 
 services:
   - type: web
-    name: express-helloo-world
+    name: express-hello-world
     env: node
-    region: oregon                   # optional (defaults to oregon)
-    plan: starter                    # optional (defaults to starter)
     previewPlan: starter
-    # healthCheckPath: /status
     autoDeploy: true      # Immediately deploy upon push to git default branch
     previewsEnabled: true
     previewsExpireAfterDays: 2
-    scaling:
-      minInstances: 1     # Preview environment will only ever use minInstances
-      maxInstances: 3
-      targetMemoryPercent: 70
-      targetCPUPercent: 70
     buildCommand: yarn
     startCommand: yarn start
-    domains:
-    # - test-exec-dash.metrocare-agent.com
-    envVars:
-    - key: NODE_ENV
-      value: production
-      previewValue: test
