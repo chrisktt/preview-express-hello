@@ -9,4 +9,7 @@ app.get("/", (req, res) => res.send(
   ""
 ));
 
+app.get("/status", (req, res) => res.status(200).json({message: 'ok'}))
+
 app.listen(port, () => console.log(`Example app listening on port http://localhost:${port} !`));
+
