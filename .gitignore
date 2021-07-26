@@ -1,0 +1,18 @@
+# not text
+*.pdf
+*.xlsx
+*.csv
+*.png
+*.gz
+*.log
+*.lnk  # windows shortcut
+
+# build artifacts
+/dist
+/tmp
+
+# dependencies
+/node_modules
+
+# IDE litter
+.vscode/*
