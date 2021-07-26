@@ -17,3 +17,6 @@ services:
     autoDeploy: true      # Immediately deploy upon push to git default branch
     buildCommand: yarn
     startCommand: yarn start
+    envVars:
+      - key: DB_URI
+        value: 'mongodb://aXelFoleY:b3v3rlyHi77s*C0p@portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-ssl2470-10.mpcssurveys18.3038111348.composedb.com:16918/surveys-test?useUnifiedTopology=true&tls=true&useNewUrlParser=true'
