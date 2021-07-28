@@ -10,10 +10,36 @@
 previewsEnabled: true
 previewsExpireAfterDays: 2
 services:
-  - type: web
-    name: express-hello-world
-    env: node
-    previewPlan: starter
-    autoDeploy: true      # Immediately deploy upon push to git default branch
-    buildCommand: yarn
-    startCommand: yarn start
+    - type: web
+      name: express-hello-world
+      env: node
+      previewPlan: starter
+      autoDeploy: true # Immediately deploy upon push to git default branch
+      buildCommand: yarn
+      startCommand: yarn start
+
+envVarGroups:
+    - name: example
+      envVars:
+          - key: simple-key
+            value: simple-value
+    - name: production
+      envVars:
+          - key: NODE_ENV
+            value: production
+          - key: DB_URI
+            value: production-uri
+          - key: DB_PASS
+            generateValue: true
+          - key: DB_USER
+            sync: false
+    - name: test
+      envVars:
+          - key: NODE_ENV
+            value: test
+          - key: DB_URI
+            value: test-uri
+          - key: DB_PASS
+            generateValue: true
+          - key: DB_USER
+            sync: false
