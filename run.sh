@@ -25,6 +25,6 @@ DB_SERVER=portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-
 DB_NAME=surveys-test
 DB_OPTIONS="useUnifiedTopology=true&tls=true&useNewUrlParser=true"
 DB_URI=mongodb://$DB_USER:$DB_PASS@$DB_SERVER/$DB_NAME?$DB_OPTIONS
-DB_RUN_MESSAGE=this variable is set by run.sh
+DB_RUN_MESSAGE="this variable is set by run.sh"
 
 
