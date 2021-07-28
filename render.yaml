@@ -20,7 +20,7 @@ services:
       previewPlan: starter
       autoDeploy: true # Immediately deploy upon push to git default branch
       buildCommand: yarn
-      startCommand: yarn start
+      startCommand: source run.sh && yarn start
       envVars:
           - key: NODE_ENV
             value: test
