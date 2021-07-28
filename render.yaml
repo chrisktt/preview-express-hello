@@ -18,5 +18,17 @@ services:
     buildCommand: yarn
     startCommand: yarn start
     envVars:
+      - key: NODE_ENV
+        value: test
+      - key: DB_USER
+        value: aXelFoleY
+      - key: DB_PASS
+        value: b3v3rlyHi77s*C0p
+      - key: DB_SERVER
+        value: portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-ssl2470-10.mpcssurveys18.3038111348.composedb.com:16918
+      - key: DB_OPTIONS
+        value: "useUnifiedTopology=true&tls=true&useNewUrlParser=true"
       - key: DB_URI
-        value: 'mongodb://aXelFoleY:b3v3rlyHi77s*C0p@portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-ssl2470-10.mpcssurveys18.3038111348.composedb.com:16918/surveys-test?useUnifiedTopology=true&tls=true&useNewUrlParser=true'
+        value: mongodb://$DB_USER:$DB_PASS@$DB_SERVER/$DB_NAME?$DB_OPTIONS
+      # - key: DB_URI
+      #   value: 'mongodb://aXelFoleY:b3v3rlyHi77s*C0p@portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-ssl2470-10.mpcssurveys18.3038111348.composedb.com:16918/surveys-test?useUnifiedTopology=true&tls=true&useNewUrlParser=true'
