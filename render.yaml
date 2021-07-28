@@ -19,6 +19,7 @@ services:
       env: node
       previewPlan: starter
       autoDeploy: true # Immediately deploy upon push to git default branch
+      healthCheckPath: /app_status
       buildCommand: yarn
       startCommand: source run.sh && yarn start
       envVars:
