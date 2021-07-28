@@ -1,6 +1,10 @@
 # https://render.com/docs/yaml-spec
 # deploy service on render.com
 
+# render.yaml does not support variable interpolation.
+# The best way to accomplish this is to pair environment variables
+# with a build or start script that does the interpolation for you.
+
 # Preview Environments | Render · Cloud Hosting for Developers
 # https://render.com/docs/preview-environments
 # Preview environment is a temporary service and URL that
@@ -18,6 +22,24 @@ services:
       buildCommand: yarn
       startCommand: yarn start
       envVars:
+          - key: NODE_ENV
+            value: test
+          - key: DB_NAME
+            value: surveys-test
+          - key: DB_USER
+            value: aXelFoleY
+          - key: DB_PASS
+            value: b3v3rlyHi77s*C0p
+          - key: DB_SERVER
+            value: portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-ssl2470-10.mpcssurveys18.3038111348.composedb.com:16918
+          - key: DB_OPTIONS
+            value: 'useUnifiedTopology=true&tls=true&useNewUrlParser=true'
+          - key: DB_URI
+            value: mongodb://$DB_USER:$DB_PASS@$DB_SERVER/$DB_NAME?$DB_OPTIONS
+          # - key: DB_URI
+          #   value: 'mongodb://aXelFoleY:b3v3rlyHi77s*C0p@portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-ssl2470-10.mpcssurveys18.3038111348.composedb.com:16918/surveys-test?useUnifiedTopology=true&tls=true&useNewUrlParser=true'
+
+      envVars-OFF:
           - key: DB_URI
             value: 'mongodb://aXelFoleY:b3v3rlyHi77s*C0p@portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-ssl2470-10.mpcssurveys18.3038111348.composedb.com:16918/surveys-test?useUnifiedTopology=true&tls=true&useNewUrlParser=true'
           - key: NODE_ENV
@@ -28,28 +50,29 @@ services:
             generateValue: true
           - key: DB_USER
             sync: false
-# envVarGroups:
-#     - name: example
-#       envVars:
-#           - key: simple-key
-#             value: simple-value
-#     - name: production
-#       envVars:
-#           - key: NODE_ENV
-#             value: production
-#           - key: DB_URI
-#             value: production-uri
-#           - key: DB_PASS
-#             generateValue: true
-#           - key: DB_USER
-#             sync: false
-#     - name: test
-#       envVars:
-#           - key: NODE_ENV
-#             value: test
-#           - key: DB_URI
-#             value: test-uri
-#           - key: DB_PASS
-#             generateValue: true
-#           - key: DB_USER
-#             sync: false
+
+envVarGroups-OFF:
+    - name: example
+      envVars:
+          - key: simple-key
+            value: simple-value
+    - name: production
+      envVars:
+          - key: NODE_ENV
+            value: production
+          - key: DB_URI
+            value: production-uri
+          - key: DB_PASS
+            generateValue: true
+          - key: DB_USER
+            sync: false
+    - name: test
+      envVars:
+          - key: NODE_ENV
+            value: test
+          - key: DB_URI
+            value: test-uri
+          - key: DB_PASS
+            generateValue: true
+          - key: DB_USER
+            sync: false
