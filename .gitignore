@@ -1,3 +1,6 @@
+package-lock.json
+*.sh
+
 # not text
 *.pdf
 *.xlsx
@@ -10,9 +13,41 @@
 # build artifacts
 /dist
 /tmp
+/temp-post-files
 
 # dependencies
 /node_modules
+**/build
 
-# IDE litter
+# IDEs and editor
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
 .vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+package-lock.json
+/tmp
+
+# System Files
+.DS_Store
+Thumbs.db
