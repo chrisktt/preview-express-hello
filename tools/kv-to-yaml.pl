@@ -19,9 +19,9 @@ becomes
 if ("--test" eq $ARGV[0]) {test(); exit 0}; # Run tests if --test
 
 while (<>) {
-    chomp;
-    m/^#/ and next;  # skip comments
+    m/^#|(^\w*$)/ and print and next;   # pass comments and empty lines to output unchanged
     m/=/ or next;  # skip if no equal sign
+    chomp;
     ($key,$val) = split('=', $_, 2);
     print "- key: ",   trim($key), "\n";
     print "  value: ", trim($val), "\n";
