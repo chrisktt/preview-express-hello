@@ -31,27 +31,27 @@ services:
           - key: DB_USER
             value: mikel.leu
           - key: DB_PASS
-            value: '%40e$bu$17' #secret
+            # value: '%40e$bu$17' #secret
+            sync: false
           - key: DB_SERVER
             value: portal-ssl1052-28.metropcs2017.aesbus.composedb.com:23865,portal-ssl977-29.metropcs2017.aesbus.composedb.com:23865
           - key: DB_OPTIONS
             value: 'tls=true&retryWrites=false'
-
-envVarGroups:
-    - name: example
-      envVars:
-          - key: simple-key
-            value: simple-value
-    - name: production
-      envVars:
-          - key: NODE_ENV
-            value: production
-          - key: DB_URI
-            value: production-uri
-          - key: DB_PASS
-            generateValue: true
-          - key: DB_USER
-            sync: false
+# envVarGroups:
+#     - name: example
+#       envVars:
+#           - key: simple-key
+#             value: simple-value
+#     - name: production
+#       envVars:
+#           - key: NODE_ENV
+#             value: production
+#           - key: DB_URI
+#             value: production-uri
+#           - key: DB_PASS
+#             generateValue: true
+#           - key: DB_USER
+#             sync: false
 # envVarGroups:
 #     - name: example
 #       envVars:
