@@ -12,7 +12,7 @@ const port = process.env.PORT || 3001;
 // https://stackoverflow.com/questions/40818016/connect-vs-createconnection
 
 // Options passed through the URI seem to be ignored, so include them here
-const dbOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+const dbOptions = { useNewUrlParser: true, useUnifiedTopology: true, tls: true };
 mongoose
     .connect(process.env.DB_URI, dbOptions)
     .then(() => {
