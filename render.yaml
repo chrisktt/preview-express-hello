@@ -23,35 +23,38 @@ services:
       buildCommand: yarn
       startCommand: source run.sh && yarn start
       envVars:
-          # exec-dash-two test
           - key: NODE_ENV
             value: test
           - key: DB_NAME
-            value: executiveDashboardDev
+            value: surveys-test
           - key: DB_USER
-            value: mikel.leu
+            value: aXelFoleY
           - key: DB_PASS
-            # value: '%40e$bu$17' #secret
-            sync: false
+            value: b3v3rlyHi77s*C0p
           - key: DB_SERVER
-            value: portal-ssl1052-28.metropcs2017.aesbus.composedb.com:23865,portal-ssl977-29.metropcs2017.aesbus.composedb.com:23865
+            value: portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-ssl2470-10.mpcssurveys18.3038111348.composedb.com:16918
           - key: DB_OPTIONS
-            value: 'tls=true&retryWrites=false'
-# envVarGroups:
-#     - name: example
-#       envVars:
-#           - key: simple-key
-#             value: simple-value
-#     - name: production
-#       envVars:
-#           - key: NODE_ENV
-#             value: production
-#           - key: DB_URI
-#             value: production-uri
-#           - key: DB_PASS
-#             generateValue: true
-#           - key: DB_USER
-#             sync: false
+            value: 'useUnifiedTopology=true&tls=true&useNewUrlParser=true'
+          #   - key: DB_URI
+          #     value: mongodb://$DB_USER:$DB_PASS@$DB_SERVER/$DB_NAME?$DB_OPTIONS
+          # - key: DB_URI
+          #   value: 'mongodb://aXelFoleY:b3v3rlyHi77s*C0p@portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-ssl2470-10.mpcssurveys18.3038111348.composedb.com:16918/surveys-test?useUnifiedTopology=true&tls=true&useNewUrlParser=true'
+
+envVarGroups:
+    - name: example
+      envVars:
+          - key: simple-key
+            value: simple-value
+    - name: production
+      envVars:
+          - key: NODE_ENV
+            value: production
+          - key: DB_URI
+            value: production-uri
+          - key: DB_PASS
+            generateValue: true
+          - key: DB_USER
+            sync: false
 # envVarGroups:
 #     - name: example
 #       envVars:

@@ -19,11 +19,11 @@ set -x
 
 # Database info
 # DB_URI=mongodb://aXelFoleY:b3v3rlyHi77s*C0p@portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-ssl2470-10.mpcssurveys18.3038111348.composedb.com:16918/surveys-test?ssl=true
-# DB_USER=aXelFoleY
-# DB_PASS=b3v3rlyHi77s*C0p
-# DB_SERVER=portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-ssl2470-10.mpcssurveys18.3038111348.composedb.com:16918
-# DB_NAME=surveys-test
-# DB_OPTIONS="useUnifiedTopology=true&tls=true&useNewUrlParser=true"
+DB_USER=aXelFoleY
+DB_PASS=b3v3rlyHi77s*C0p
+DB_SERVER=portal-ssl2194-11.mpcssurveys18.3038111348.composedb.com:16918,portal-ssl2470-10.mpcssurveys18.3038111348.composedb.com:16918
+DB_NAME=surveys-test
+DB_OPTIONS="useUnifiedTopology=true&tls=true&useNewUrlParser=true"
 DB_URI=mongodb://$DB_USER:$DB_PASS@$DB_SERVER/$DB_NAME?$DB_OPTIONS
 DB_RUN_MESSAGE="this variable is set by run.sh"
 
