@@ -1,9 +1,14 @@
 #!/usr/bin/env perl
-# Convert key-value pairs to yaml
-#    KEY=VALUE
-# becomes
-#    - key: "KEY"
-#    value: "VALUE"
+
+=pod
+Convert key-value pairs to YAML.
+
+For example:
+   KEY=VALUE
+becomes
+   - key: "KEY"
+     value: "VALUE"
+=cut
 
 sub  trim { my $s = shift; $s =~ s/^\s+|\s+$//g; return $s };
 
