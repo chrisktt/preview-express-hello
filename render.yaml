@@ -28,7 +28,7 @@ services:
           - key: NODE_ENV
             value: production
             previewValue: test
-#           - fromGroup: test
+          - fromGroup: playtime
 # envVarGroups:
 #     #     - name: example
 #     #       envVars:
