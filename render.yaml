@@ -24,7 +24,7 @@ services:
       startCommand: source run.env && yarn start
       envVars:
           - key: APP_NAME
-            value: exec-dash
+            value: surveys
           - key: NODE_ENV
             value: production
             previewValue: test
