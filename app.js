@@ -11,6 +11,11 @@ const port = process.env.PORT || 3001;
 // https://attacomsian.com/blog/mongoose-connect-async-await
 // https://stackoverflow.com/questions/40818016/connect-vs-createconnection
 
+console.log(sayEnv('APP_NAME'));
+console.log(sayEnv('NODE_ENV'));
+console.log(sayEnv('DB_NAME'));
+console.log(sayEnv('DB_URI'));
+
 // Options passed through the URI seem to be ignored, so include them here
 const dbOptions = { useNewUrlParser: true, useUnifiedTopology: true, tls: true };
 mongoose
@@ -60,3 +65,7 @@ app.get('/app_status', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Example app listening on port http://localhost:${port} !`));
+
+function sayEnv(varname) {
+    return `${varname} = ` + eval(`process.env.${varname}`);
+}
