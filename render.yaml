@@ -23,7 +23,25 @@ services:
       buildCommand: yarn
       startCommand: source run.sh && yarn start
       envVars:
-          # exec-dash-two test
+          - fromGroup: test
+envVarGroups:
+    #     - name: example
+    #       envVars:
+    #           - key: simple-key
+    #             value: simple-value
+    #     - name: production
+    #       envVars:
+    #           - key: NODE_ENV
+    #             value: production
+    #           - key: DB_URI
+    #             value: production-uri
+    #           - key: DB_PASS
+    #             generateValue: true
+    #           - key: DB_USER
+    #             sync: false
+    # exec-dash-two test environment group
+    - name: test
+      envVars:
           - key: NODE_ENV
             value: test
           - key: DB_NAME
@@ -37,28 +55,3 @@ services:
             value: portal-ssl1052-28.metropcs2017.aesbus.composedb.com:23865,portal-ssl977-29.metropcs2017.aesbus.composedb.com:23865
           - key: DB_OPTIONS
             value: 'tls=true&retryWrites=false'
-# envVarGroups:
-#     - name: example
-#       envVars:
-#           - key: simple-key
-#             value: simple-value
-#     - name: production
-#       envVars:
-#           - key: NODE_ENV
-#             value: production
-#           - key: DB_URI
-#             value: production-uri
-#           - key: DB_PASS
-#             generateValue: true
-#           - key: DB_USER
-#             sync: false
-#     - name: test
-#       envVars:
-#           - key: NODE_ENV
-#             value: test
-#           - key: DB_URI
-#             value: test-uri
-#           - key: DB_PASS
-#             generateValue: true
-#           - key: DB_USER
-#             sync: false
