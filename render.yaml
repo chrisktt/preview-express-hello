@@ -15,7 +15,7 @@ previewsEnabled: true
 previewsExpireAfterDays: 2
 services:
     - type: web
-      name: express-hello-world
+      name: preview-express-hello-service
       env: node
       previewPlan: starter
       autoDeploy: true # Immediately deploy upon push to git default branch
