@@ -15,7 +15,7 @@ previewsEnabled: true
 previewsExpireAfterDays: 2
 services:
     - type: web
-      name: preview-express-hello-service
+      name: play-expressjs
       env: node
       previewPlan: starter
       autoDeploy: true # Immediately deploy upon push to git default branch
@@ -28,7 +28,7 @@ services:
           - key: NODE_ENV
             value: production
             previewValue: test
-          - fromGroup: playtime
+          - fromGroup: playground
 # envVarGroups:
 #     #     - name: example
 #     #       envVars:
