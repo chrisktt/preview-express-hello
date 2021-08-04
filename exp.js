@@ -1,10 +1,13 @@
 const config = require('config'); // https://github.com/lorenwest/node-config/wiki
 const dbConfig = config.get('database');
 
+console.log('dbConfig = ', dbConfig);
+
 const NODE_ENV = config.util.getEnv('NODE_ENV');
 console.log(`NODE_ENV = ${NODE_ENV}`);
 
 const database = require('./database.js');
+process.exit();
 database
     .connectToDatabase()
     .then((db) => {
