@@ -1,3 +1,4 @@
+'use strict';
 const config = require('config'); // https://github.com/lorenwest/node-config/wiki
 const dbConfig = config.get('database');
 
