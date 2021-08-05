@@ -15,7 +15,7 @@ previewsEnabled: true
 previewsExpireAfterDays: 1
 services:
     - type: web
-      name: experiment
+      name: play-expressjs
       env: node
       previewPlan: starter
       autoDeploy: true # Immediately deploy upon push to git default branch
