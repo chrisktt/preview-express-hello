@@ -30,7 +30,7 @@ function main(db) {
 
 app.get('/', (req, res) =>
     res.send(
-        'Hello there! <br> V 104' +
+        'Hello there! <br> V 105' +
             '<br>hash = ' +
             (process.env.RENDER_GIT_COMMIT || '').substring(0, 7) +
             ''
