@@ -26,5 +26,6 @@ exports.dbConnect = dbConnect;
 exports.dbInfo = function (db) {
     db = db || mongoose;
     let { name, host, port, user } = db.connection;
-    return { name, host, port, user };
+    let readyState = db.connection.readyState;
+    return { name, host, port, user, readyState };
 };
