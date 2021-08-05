@@ -48,6 +48,8 @@ services:
 #             previewValue: development
 #           - fromGroup: playground
 
+#     previewValue: test
+#   - fromGroup: play-bash-env
 # envVarGroups:
 #     #     - name: example
 #     #       envVars:
