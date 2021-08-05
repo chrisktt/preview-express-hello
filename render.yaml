@@ -12,23 +12,41 @@
 #    and deleted when you merge or reject the PR or after a time limit
 
 previewsEnabled: true
-previewsExpireAfterDays: 2
+previewsExpireAfterDays: 1
 services:
     - type: web
-      name: play-expressjs
+      name: exp
       env: node
       previewPlan: starter
       autoDeploy: true # Immediately deploy upon push to git default branch
-      healthCheckPath: /app_status
       buildCommand: yarn
-      startCommand: source run.env && yarn start
+      startCommand: node exp.js
       envVars:
           - key: APP_NAME
-            value: surveys
+            value: experiment
           - key: NODE_ENV
             value: production
-            previewValue: test
+            previewValue: development
           - fromGroup: playground
+# previewsEnabled: true
+# previewsExpireAfterDays: 2
+# services:
+#     - type: web
+#       name: play-expressjs
+#       env: node
+#       previewPlan: starter
+#       autoDeploy: true # Immediately deploy upon push to git default branch
+#       healthCheckPath: /app_status
+#       buildCommand: yarn
+#       startCommand: source run.env && yarn start
+#       envVars:
+#           - key: APP_NAME
+#             value: surveys
+#           - key: NODE_ENV
+#             value: production
+#             previewValue: development
+#           - fromGroup: playground
+
 # envVarGroups:
 #     #     - name: example
 #     #       envVars:
