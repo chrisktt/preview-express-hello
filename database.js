@@ -25,7 +25,6 @@ exports.dbConnect = dbConnect;
 // https://mongoosejs.com/docs/api/connection.html#connection_Connection-db
 exports.dbInfo = function (db) {
     db = db || mongoose;
-    let conn = db.connections[0];
-    let { name, host, port, user } = conn;
+    let { name, host, port, user } = db.connection;
     return { name, host, port, user };
 };
