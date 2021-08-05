@@ -28,7 +28,7 @@ services:
           - key: NODE_ENV
             value: production
             previewValue: development
-          - fromGroup: playground
+          - fromGroup: play-config-js
 # previewsEnabled: true
 # previewsExpireAfterDays: 2
 # services:

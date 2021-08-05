@@ -17,10 +17,12 @@ database
     .then((db) => {
         // console.log(`GOT IT Connected to database: ${dbConfig.name}`);
         main(db);
+        console.log('Still running');
     })
     .catch((err) => {
         console.log('Failed to connect to DB: ', err);
         main(db);
+        console.log('Shutting down');
         process.exit();
     });
 
