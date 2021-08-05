@@ -1,12 +1,7 @@
 'use strict';
 const config = require('config'); // https://github.com/lorenwest/node-config/wiki
 process.env.NODE_ENV = config.util.getEnv('NODE_ENV');
-// const dbConfig = config.get('database');
 
-// console.log('dbConfig = ', dbConfig);
-
-// const NODE_ENV = config.util.getEnv('NODE_ENV');
-process.env.NODE_ENV = config.util.getEnv('NODE_ENV');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
@@ -22,8 +17,6 @@ database
     .then((db) => {
         // console.log(`GOT IT Connected to database: ${dbConfig.name}`);
         console.log(`GOT IT Connected to database: `);
-        let dbStatus = db.connection.readyState;
-        console.log(`dbStatus = ${dbStatus}`);
         main(db);
         process.exit();
     })
@@ -35,28 +28,7 @@ database
 
 function main(db) {
     console.log('Program started');
-    // console.log('mongoose connection: ', db.connections);
-    const connection = db.connections[0];
-    // console.log('mongoose INFO: ', connection.pass);
-    // let dbinfo = connection.name;
-    // let { name, host, port, user } = connection;
-    // console.log('mongoose INFO: ', database.dbInfo(db));
     console.log('mongoose INFO: ', database.dbInfo());
-
-    // console.log('mongoose INFO: ', dbInfo(connection));
-    // console.log('mongoose NAME: ', name);
-    // console.log('mongoose INFO: ', connection);
-}
-
-function dbInfo(db) {
-    let conn = db.connections[0];
-    let { name, host, port, user } = conn;
-    console.log('OPTIONS ', conn.options);
-    return { name, host, port, user };
-}
-
-function dbInfo2({ name, host, port, user }) {
-    return { name, host, port, user };
 }
 
 app.get('/', (req, res) =>
