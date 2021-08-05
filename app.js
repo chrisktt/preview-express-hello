@@ -16,9 +16,7 @@ database
     .dbConnect()
     .then((db) => {
         // console.log(`GOT IT Connected to database: ${dbConfig.name}`);
-        console.log(`GOT IT Connected to database: `);
         main(db);
-        process.exit();
     })
     .catch((err) => {
         console.log('Failed to connect to DB: ', err);
@@ -28,7 +26,6 @@ database
 
 function main(db) {
     console.log('Program started');
-    console.log('mongoose INFO: ', database.dbInfo());
 }
 
 app.get('/', (req, res) =>
@@ -45,12 +42,12 @@ app.get('/app_status', (req, res) => {
     let envStatus = {
         node_env: process.env.NODE_ENV || '',
         app_hash: (process.env.RENDER_GIT_COMMIT || '').substring(0, 7),
-        db_name: process.env.DB_NAME || '',
-        db_server: process.env.DB_SERVER || '',
+        database: database.dbInfo(),
     };
     // assumes db is a mongoose handle
     // https://mongoosejs.com/docs/api.html#connection_Connection-readyState
-    let dbStatus = mongoose.connection.readyState;
+    let dbStatus = database.dbInfo().readyState;
+
     switch (dbStatus) {
         case 0:
             return res.status(500).json({ db_status: 'disconnected', ...envStatus });
