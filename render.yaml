@@ -28,7 +28,7 @@ services:
           - key: NODE_ENV
             value: production
             previewValue: test
-          - fromGroup: playground
+          - fromGroup: play-bash-env
 # envVarGroups:
 #     #     - name: example
 #     #       envVars:
