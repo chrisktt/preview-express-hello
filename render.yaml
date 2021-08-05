@@ -15,12 +15,12 @@ previewsEnabled: true
 previewsExpireAfterDays: 1
 services:
     - type: web
-      name: exp
+      name: experiment
       env: node
       previewPlan: starter
       autoDeploy: true # Immediately deploy upon push to git default branch
       buildCommand: yarn
-      startCommand: node exp.js
+      startCommand: node app.js
       envVars:
           - key: APP_NAME
             value: experiment
