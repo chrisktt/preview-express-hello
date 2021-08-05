@@ -1,40 +1,67 @@
-const mongoose = require('mongoose');
+'use strict';
+const config = require('config'); // https://github.com/lorenwest/node-config/wiki
+process.env.NODE_ENV = config.util.getEnv('NODE_ENV');
+// const dbConfig = config.get('database');
+
+// console.log('dbConfig = ', dbConfig);
+
+// const NODE_ENV = config.util.getEnv('NODE_ENV');
+process.env.NODE_ENV = config.util.getEnv('NODE_ENV');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
-
-// https://docs.mongodb.com/manual/reference/connection-string/#std-label-connections-connection-options
-// https://mongoosejs.com/docs/connections.html
-// https://mongoosejs.com/docs/connections.html#multiple_connections
-// https://stackoverflow.com/questions/22950282/mongoose-schema-vs-model/22950402#22950402
-// https://masteringjs.io/tutorials/mongoose/mongoose-connect-async
-// https://attacomsian.com/blog/mongoose-connect-async-await
-// https://stackoverflow.com/questions/40818016/connect-vs-createconnection
 
 console.log(sayEnv('APP_NAME'));
 console.log(sayEnv('NODE_ENV'));
 console.log(sayEnv('DB_NAME'));
 console.log(sayEnv('DB_URI'));
 
-// Options passed through the URI seem to be ignored, so include them here
-const dbOptions = { useNewUrlParser: true, useUnifiedTopology: true, tls: true };
-mongoose
-    .connect(process.env.DB_URI, dbOptions)
-    .then(() => {
-        console.log(`Connected to database: ${process.env.DB_NAME}`);
-        start();
+const database = require('./database.js');
+database
+    .dbConnect()
+    .then((db) => {
+        // console.log(`GOT IT Connected to database: ${dbConfig.name}`);
+        console.log(`GOT IT Connected to database: `);
+        let dbStatus = db.connection.readyState;
+        console.log(`dbStatus = ${dbStatus}`);
+        main(db);
+        process.exit();
     })
     .catch((err) => {
-        console.log('Failed to connect to DB', err);
+        console.log('Failed to connect to DB: ', err);
+        main(db);
+        process.exit();
     });
 
-function start() {
+function main(db) {
     console.log('Program started');
+    // console.log('mongoose connection: ', db.connections);
+    const connection = db.connections[0];
+    // console.log('mongoose INFO: ', connection.pass);
+    // let dbinfo = connection.name;
+    // let { name, host, port, user } = connection;
+    // console.log('mongoose INFO: ', database.dbInfo(db));
+    console.log('mongoose INFO: ', database.dbInfo());
+
+    // console.log('mongoose INFO: ', dbInfo(connection));
+    // console.log('mongoose NAME: ', name);
+    // console.log('mongoose INFO: ', connection);
+}
+
+function dbInfo(db) {
+    let conn = db.connections[0];
+    let { name, host, port, user } = conn;
+    console.log('OPTIONS ', conn.options);
+    return { name, host, port, user };
+}
+
+function dbInfo2({ name, host, port, user }) {
+    return { name, host, port, user };
 }
 
 app.get('/', (req, res) =>
     res.send(
-        'Hello there! <br> V 103' +
+        'Hello there! <br> V 104' +
             '<br>hash = ' +
             (process.env.RENDER_GIT_COMMIT || '').substring(0, 7) +
             ''
