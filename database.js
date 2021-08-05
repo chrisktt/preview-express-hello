@@ -28,7 +28,20 @@ function dbInfo(db) {
     let { name, host, port, user } = db.connection;
     // https://mongoosejs.com/docs/api.html#connection_Connection-readyState
     let readyState = db.connection.readyState;
-    return { name, host, port, user, readyState };
+    let readyDescription = ['disconnected', 'connected', 'connecting', 'disconnecting'][readyState];
+    return { name, host, port, user, readyState, readyDescription };
 }
 
 exports.dbInfo = dbInfo;
+
+// switch (dbStatus) {
+//     case 0:
+//         return res.status(500).json({ db_status: 'disconnected', ...envStatus });
+//     case 1:
+//         return res.status(200).json({ db_status: 'connected', ...envStatus });
+//     case 2:
+//         return res.status(200).json({ db_status: 'connecting', ...envStatus });
+//     case 3:
+//         return res.status(500).json({ db_status: 'disconnecting', ...envStatus });
+// }
+// }
