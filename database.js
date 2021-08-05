@@ -10,7 +10,7 @@ async function connectToDatabase() {
     // https://masteringjs.io/tutorials/mongoose/mongoose-connect-async
     // https://attacomsian.com/blog/mongoose-connect-async-await
     // https://stackoverflow.com/questions/40818016/connect-vs-createconnection
-
+async function dbConnect() {
     try {
         await mongoose.connect(dbConfig.uri, dbConfig.options);
         console.log(`Connected to database: ${dbConfig.name}`);
