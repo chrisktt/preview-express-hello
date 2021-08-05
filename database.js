@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 async function dbConnect() {
     try {
         await mongoose.connect(dbConfig.uri, dbConfig.options);
-        console.log(`Connected to database: ${dbConfig.name}`);
+        console.log(`Connected to database: `, dbInfo());
         return mongoose;
     } catch (error) {
         console.log('Failed to connect to database: ', error);
@@ -23,9 +23,12 @@ exports.dbConnect = dbConnect;
 
 // Helper: takes a connection returned by dbConnect and returns some useful info.
 // https://mongoosejs.com/docs/api/connection.html#connection_Connection-db
-exports.dbInfo = function (db) {
+function dbInfo(db) {
     db = db || mongoose;
     let { name, host, port, user } = db.connection;
+    // https://mongoosejs.com/docs/api.html#connection_Connection-readyState
     let readyState = db.connection.readyState;
     return { name, host, port, user, readyState };
-};
+}
+
+exports.dbInfo = dbInfo;
