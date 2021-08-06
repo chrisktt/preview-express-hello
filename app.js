@@ -6,16 +6,17 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
 
-console.log(sayEnv('APP_NAME'));
 console.log(sayEnv('NODE_ENV'));
-console.log(sayEnv('DB_NAME'));
-console.log(sayEnv('DB_URI'));
+// console.log(sayEnv('APP_NAME'));
+// console.log(sayEnv('DB_NAME'));
+// console.log(sayEnv('DB_URI'));
 
 const database = require('./database.js');
 database
     .dbConnect()
     .then((db) => {
         // console.log(`GOT IT Connected to database: ${dbConfig.name}`);
+        console.log(`GOT IT -- MAYBE connected to database`);
         main(db);
         console.log('Still running');
     })
