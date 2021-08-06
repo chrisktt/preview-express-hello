@@ -28,9 +28,8 @@ exports.dbConnect = dbConnect;
 function dbInfo(db) {
     db = db || mongoose; // use the global mongoose if none specified
     // https://mongoosejs.com/docs/api.html#connection_Connection-readyState
-    let readyState = db.connection.readyState;
-    let readyDescriptor = ['disconnected', 'connected', 'connecting', 'disconnecting'][readyState];
-    let { name, host, port, user } = db.connection;
+    const { name, host, port, user, readyState } = db.connection;
+    const readyDescriptor = db.connection.states[readyState];
     return { name, host, port, user, readyState, readyDescriptor };
 }
 
