@@ -19,16 +19,18 @@ database
         console.log(`GOT IT -- MAYBE connected to database`);
         main(db);
         console.log('Still running');
+        process.exit();
     })
     .catch((err) => {
+        // Seems we never get here.
         console.log('Failed to connect to DB: ', err);
-        main(db);
         console.log('Shutting down');
         process.exit();
     });
 
 function main(db) {
     console.log('Program started');
+    console.log('DATABASE STATUS = ', db.connection.readyState);
 }
 
 app.get('/', (req, res) =>
