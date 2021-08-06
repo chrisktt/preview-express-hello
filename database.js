@@ -9,14 +9,16 @@ const mongoose = require('mongoose');
 // https://masteringjs.io/tutorials/mongoose/mongoose-connect-async
 // https://attacomsian.com/blog/mongoose-connect-async-await
 // https://stackoverflow.com/questions/40818016/connect-vs-createconnection
+
 async function dbConnect() {
     try {
+        console.log('CONNECTING: ', dbConfig);
         await mongoose.connect(dbConfig.uri, dbConfig.options);
         console.log(`Connected to database: `, dbInfo());
         return mongoose;
     } catch (error) {
-        console.log('Failed to connect to database: ', error);
-        return mongoose; // Let caller handle errors
+        console.log('Failed to connect to database: ', dbInfo(), error);
+        return mongoose; // Let caller handle errors -- may want to retry
     }
 }
 exports.dbConnect = dbConnect;
@@ -24,24 +26,12 @@ exports.dbConnect = dbConnect;
 // Helper: takes a connection returned by dbConnect and returns some useful info.
 // https://mongoosejs.com/docs/api/connection.html#connection_Connection-db
 function dbInfo(db) {
-    db = db || mongoose;
-    let { name, host, port, user } = db.connection;
+    db = db || mongoose; // use the global mongoose if none specified
     // https://mongoosejs.com/docs/api.html#connection_Connection-readyState
     let readyState = db.connection.readyState;
-    let readyDescription = ['disconnected', 'connected', 'connecting', 'disconnecting'][readyState];
-    return { name, host, port, user, readyState, readyDescription };
+    let readyDescriptor = ['disconnected', 'connected', 'connecting', 'disconnecting'][readyState];
+    let { name, host, port, user } = db.connection;
+    return { name, host, port, user, readyState, readyDescriptor };
 }
 
 exports.dbInfo = dbInfo;
-
-// switch (dbStatus) {
-//     case 0:
-//         return res.status(500).json({ db_status: 'disconnected', ...envStatus });
-//     case 1:
-//         return res.status(200).json({ db_status: 'connected', ...envStatus });
-//     case 2:
-//         return res.status(200).json({ db_status: 'connecting', ...envStatus });
-//     case 3:
-//         return res.status(500).json({ db_status: 'disconnecting', ...envStatus });
-// }
-// }
