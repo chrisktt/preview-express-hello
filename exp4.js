@@ -23,37 +23,43 @@ const dbConfig_bad = {
     },
 };
 
-async function dbConnect(dbConfig) {
-    try {
-        console.log('CONNECTING: ', dbConfig);
-        await mongoose.connect(dbConfig.uri, dbConfig.options);
-        console.log(`Connected to database: `, dbInfo());
-        return mongoose;
-    } catch (error) {
-        console.log('Failed to connect to database: ', { ...dbInfo(mongoose), ...dbError(error) });
-        // What should we return here ?
-        // Want to tell caller that database connection failed
-        return false;
-        return mongoose; // This looks like success to the caller
-    }
-}
-
 // let prom = dbConnect(dbConfig_good);
 let prom = dbConnect(dbConfig_bad);
 prom.then(success).catch(fail).finally(console.log('FINALLY'));
 
 console.log('GOT HERE');
 
+async function dbConnect(dbConfig) {
+    try {
+        const result = await mongoose.connect(dbConfig.uri, dbConfig.options);
+        // console.log(`Connected to database: `, dbInfo());
+        return result;
+    } catch (error) {
+        // console.log('Failed to connect to database: ', { ...dbInfo(mongoose), ...dbError(error) });
+        // console.log('Failed to connect to database: ', { ...dbError(error) });
+        // What should we return here ?
+        // Want to tell caller that database connection failed
+        let thenable = {
+            then: function (resolve, reject) {
+                reject({ ...dbInfo(mongoose), ...dbError(error) });
+            },
+        };
+        return thenable; // This looks like success to the caller
+    }
+}
+
 function success(value) {
     // value is a global mongoose on success
-    console.log('success', dbInfo(value));
+    console.log('SUCCESS');
+    console.log('SUCCESS VALUE', dbInfo(value));
     main();
 }
 
 function fail(value) {
+    console.log('FAILURE');
     // value is an error string on failure
-
-    console.log('failure: ', dbError(value));
+    // console.log('FAILURE VALUE: ', value);
+    console.log('failure: ', value);
     main();
 }
 
@@ -63,6 +69,7 @@ function main() {
 }
 
 function dbInfo(db) {
+    console.log('DB_INFO');
     db = db || mongoose; // use the global mongoose if none specified
     // https://mongoosejs.com/docs/api.html#connection_Connection-readyState
     const { name, host, port, user, readyState } = db.connection;
@@ -72,6 +79,7 @@ function dbInfo(db) {
 
 // Given a mongoose error, provide a summary
 function dbError(err) {
+    // console.log('DBERROR = ', err);
     const { ok, code, codeName } = err;
     return { ok, code, codeName };
 }
