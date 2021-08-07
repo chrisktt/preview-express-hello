@@ -32,16 +32,19 @@ console.log('GOT HERE');
 async function dbConnect(dbConfig) {
     try {
         const result = await mongoose.connect(dbConfig.uri, dbConfig.options);
-        // console.log(`Connected to database: `, dbInfo());
+        console.log(`Connected to database: `, dbInfo());
         return result;
     } catch (error) {
+        const errInfo = { ...dbInfo(mongoose), ...dbError(error) };
+        console.log('Failed to connect to database: ', errInfo);
         // console.log('Failed to connect to database: ', { ...dbInfo(mongoose), ...dbError(error) });
         // console.log('Failed to connect to database: ', { ...dbError(error) });
         // What should we return here ?
         // Want to tell caller that database connection failed
         let thenable = {
             then: function (resolve, reject) {
-                reject({ ...dbInfo(mongoose), ...dbError(error) });
+                // resolve(result);
+                reject(errInfo);
             },
         };
         return thenable; // This looks like success to the caller
@@ -55,11 +58,12 @@ function success(value) {
     main();
 }
 
-function fail(value) {
+function fail(result) {
     console.log('FAILURE');
     // value is an error string on failure
     // console.log('FAILURE VALUE: ', value);
-    console.log('failure: ', value);
+    // console.log('failure: ', dbInfo(db), err);
+    console.log('FAIL VALUE: ', result);
     main();
 }
 
