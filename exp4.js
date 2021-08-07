@@ -3,20 +3,45 @@
 // https://mongoosejs.com/docs/promises.html
 // https://mongoosejs.com/docs/connections.html
 
-const uri =
-    'mongodb://mikel.leu:%40e$bu$17@portal-ssl1052-28.metropcs2017.aesbus.composedb.com:23865,portal-ssl977-29.metropcs2017.aesbus.composedb.com:23865/executiveDashboardDev';
-// 'mongodb://mikelX.leu:%40e$bu$17@portal-ssl1052-28.metropcs2017.aesbus.composedb.com:23865,portal-ssl977-29.metropcs2017.aesbus.composedb.com:23865/executiveDashboardDev';
-const options = {
-    tls: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-};
-
 const mongoose = require('mongoose');
 
-let prom = mongoose.connect(uri, options);
+const dbConfig_good = {
+    uri: 'mongodb://mikel.leu:%40e$bu$17@portal-ssl1052-28.metropcs2017.aesbus.composedb.com:23865,portal-ssl977-29.metropcs2017.aesbus.composedb.com:23865/executiveDashboardDev',
+    options: {
+        tls: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    },
+};
 
+const dbConfig_bad = {
+    uri: 'mongodb://mikel.leu:BAD_PASS@portal-ssl1052-28.metropcs2017.aesbus.composedb.com:23865,portal-ssl977-29.metropcs2017.aesbus.composedb.com:23865/executiveDashboardDev',
+    options: {
+        tls: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    },
+};
+
+async function dbConnect(dbConfig) {
+    try {
+        console.log('CONNECTING: ', dbConfig);
+        await mongoose.connect(dbConfig.uri, dbConfig.options);
+        console.log(`Connected to database: `, dbInfo());
+        return mongoose;
+    } catch (error) {
+        console.log('Failed to connect to database: ', { ...dbInfo(mongoose), ...dbError(error) });
+        // What should we return here ?
+        // Want to tell caller that database connection failed
+        return false;
+        return mongoose; // This looks like success to the caller
+    }
+}
+
+// let prom = dbConnect(dbConfig_good);
+let prom = dbConnect(dbConfig_bad);
 prom.then(success).catch(fail).finally(console.log('FINALLY'));
+
 console.log('GOT HERE');
 
 function success(value) {
