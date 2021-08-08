@@ -11,14 +11,38 @@ const mongoose = require('mongoose');
 // https://stackoverflow.com/questions/40818016/connect-vs-createconnection
 
 async function dbConnect() {
+    // We want this to mimick:
+    //      return await mongoose.connect(dbConfig.uri, dbConfig.options);
+    // But we also want to do some logging and better error checking
+    // so we have to return "thenable" to mimick the promise returned by connect
+    // https://masteringjs.io/tutorials/fundamentals/thenable
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await#thenable_objects
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
+    // https://blog.ashleygrant.com/2020/04/30/resolved-javascript-promises-can-be-used-multiple-times/
+    // https://javascript.plainenglish.io/the-benefit-of-the-thenable-object-in-javascript-78107b697211
+
     try {
-        console.log('CONNECTING: ', dbConfig);
-        await mongoose.connect(dbConfig.uri, dbConfig.options);
+        const result = await mongoose.connect(dbConfig.uri, dbConfig.options);
         console.log(`Connected to database: `, dbInfo());
-        return mongoose;
+        const thenable = {
+            then(resolve, reject) {
+                resolve(result);
+                // reject(errInfo);
+            },
+        };
+        return thenable;
     } catch (error) {
-        console.log('Failed to connect to database: ', dbInfo(), error);
-        return mongoose; // Let caller handle errors -- may want to retry
+        const errInfo = { ...dbInfo(mongoose), ...dbError(error) };
+        console.log('Failed to connect to database: ', errInfo);
+        // What should we return here ?
+        // Want to tell caller that database connection failed
+        const thenable = {
+            then(resolve, reject) {
+                // resolve(result);
+                reject(errInfo);
+            },
+        };
+        return thenable;
     }
 }
 exports.dbConnect = dbConnect;
@@ -29,8 +53,14 @@ function dbInfo(db) {
     db = db || mongoose; // use the global mongoose if none specified
     // https://mongoosejs.com/docs/api.html#connection_Connection-readyState
     const { name, host, port, user, readyState } = db.connection;
-    const readyDescriptor = db.connection.states[readyState];
+    const readyDescriptor = db.STATES[readyState];
     return { name, host, port, user, readyState, readyDescriptor };
 }
-
 exports.dbInfo = dbInfo;
+
+// Given a mongoose error, provide a summary
+function dbError(err) {
+    const { ok, code, codeName } = err;
+    return { ok, code, codeName };
+}
+exports.dbError = dbError;

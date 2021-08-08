@@ -15,15 +15,11 @@ const database = require('./database.js');
 database
     .dbConnect()
     .then((db) => {
-        // console.log(`GOT IT Connected to database: ${dbConfig.name}`);
-        console.log(`GOT IT -- MAYBE connected to database`);
         main(db);
         console.log('Still running');
         process.exit();
     })
     .catch((err) => {
-        // Seems we never get here.
-        console.log('Failed to connect to DB: ', err);
         console.log('Shutting down');
         process.exit();
     });
