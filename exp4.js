@@ -23,18 +23,28 @@ const dbConfig_bad = {
     },
 };
 
-let prom = dbConnect(dbConfig_good);
-// let prom = dbConnect(dbConfig_bad);
+// let prom = dbConnect(dbConfig_good);
+let prom = dbConnect(dbConfig_bad);
 prom.then(success).catch(fail).finally(console.log('FINALLY'));
 
 console.log('GOT HERE');
 
 async function dbConnect(dbConfig) {
+    // We want this to mimick:
+    //      return await mongoose.connect(dbConfig.uri, dbConfig.options);
+    // But we also want to do some logging and better error checking
+    // so we have to return "thenable" to mimick the promise returned by connect
+    // https://masteringjs.io/tutorials/fundamentals/thenable
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await#thenable_objects
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
+    // https://blog.ashleygrant.com/2020/04/30/resolved-javascript-promises-can-be-used-multiple-times/
+    // https://javascript.plainenglish.io/the-benefit-of-the-thenable-object-in-javascript-78107b697211
+
     try {
         const result = await mongoose.connect(dbConfig.uri, dbConfig.options);
         console.log(`Connected to database: `, dbInfo());
-        let thenable = {
-            then: function (resolve, reject) {
+        const thenable = {
+            then(resolve, reject) {
                 resolve(result);
                 // reject(errInfo);
             },
@@ -45,8 +55,8 @@ async function dbConnect(dbConfig) {
         console.log('Failed to connect to database: ', errInfo);
         // What should we return here ?
         // Want to tell caller that database connection failed
-        let thenable = {
-            then: function (resolve, reject) {
+        const thenable = {
+            then(resolve, reject) {
                 // resolve(result);
                 reject(errInfo);
             },
