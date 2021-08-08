@@ -16,8 +16,8 @@ database
     .dbConnect()
     .then((db) => {
         main(db);
-        console.log('Still running');
-        process.exit();
+        // console.log('Still running');
+        // process.exit();
     })
     .catch((err) => {
         console.log('Shutting down');
@@ -52,7 +52,7 @@ app.get('/app_status', (req, res) => {
     return res.status(httpStatus).json(envStatus);
 });
 
-app.listen(port, () => console.log(`Example app listening on port http://localhost:${port} !`));
+app.listen(port, () => console.log(`App listening on port http://localhost:${port} !`));
 
 function sayEnv(varname) {
     return `${varname} = ` + eval(`process.env.${varname}`);
