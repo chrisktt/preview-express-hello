@@ -21,7 +21,7 @@ services:
       autoDeploy: true # Immediately deploy upon push to git default branch
       healthCheckPath: /app_status
       buildCommand: yarn
-      startCommand: node app.js
+      startCommand: source run.env && yarn start
       envVars:
           - key: APP_NAME
             value: experiment
