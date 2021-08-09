@@ -23,7 +23,7 @@ async function dbConnect() {
 
     try {
         const result = await mongoose.connect(dbConfig.uri, dbConfig.options);
-        console.log(`Connected to database: `, dbInfo());
+        console.log(`Connected to database: `, JSON.stringify(dbInfo()));
         const thenable = {
             then(resolve, reject) {
                 resolve(result);
@@ -33,7 +33,7 @@ async function dbConnect() {
         return thenable;
     } catch (error) {
         const errInfo = { ...dbInfo(mongoose), ...dbError(error) };
-        console.log('Failed to connect to database: ', errInfo);
+        console.log('Failed to connect to database: ', JSON.stringify(errInfo));
         // What should we return here ?
         // Want to tell caller that database connection failed
         const thenable = {
